@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain
 {
-    class Order
+    public class Order
     {
         public IList<OrderItem> OrderItems = new List<OrderItem>();
     }

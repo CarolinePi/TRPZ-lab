@@ -5,15 +5,13 @@ using System.Text;
 
 namespace Domain
 {
-    class Material
+    public class Material
     {
         public string Name { get; set; }
         public int Quantity { get; set; }
 
-        public Material(string Name, int Quantity)
+        public Material()
         {
-            this.Name = Name;
-            this.Quantity = Quantity;
         }
     }
 }

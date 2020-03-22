@@ -7,8 +7,8 @@ namespace Data.Interfaces
 {
     public interface IUnitOfWork
     {
-        IRepository<Material> MaterialRepository { get; }
-        IRepository<Frame> FrameRepository { get; }
+        IRepository<MaterialModel> MaterialRepository { get; }
+        IRepository<FrameModel> FrameRepository { get; }
         void Save();
     }
 }

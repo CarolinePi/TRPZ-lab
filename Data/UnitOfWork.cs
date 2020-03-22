@@ -9,10 +9,10 @@ namespace Data
     class UnitOfWork : IUnitOfWork
     {
         private readonly DataDbContext _context;
-        public IRepository<Material> MaterialRepository { get; }
-        public IRepository<Frame> FrameRepository { get; }
+        public IRepository<MaterialModel> MaterialRepository { get; }
+        public IRepository<FrameModel> FrameRepository { get; }
 
-        public UnitOfWork(DataDbContext context, IRepository<Material> materials, IRepository<Frame> frames)
+        public UnitOfWork(DataDbContext context, IRepository<MaterialModel> materials, IRepository<FrameModel> frames)
             {
                 _context = context;
                 MaterialRepository = materials;

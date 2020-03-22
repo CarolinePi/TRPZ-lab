@@ -1,20 +1,23 @@
 ﻿using Data.Interfaces;
+using Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Domain
 {
-    class FrameInteractor: IFrameInteractor
+    public class FrameInteractor: IFrameInteractor
     {
-        private IRepository<Frame> framesRepository;
+        private readonly IRepository<FrameModel> framesRepository;
+        private readonly IMapper<IEnumerable<Frame>, IEnumerable<FrameModel>> _mapper;
         public IEnumerable<Frame> GetAllFrames()
         {
-            return framesRepository.GetAll();
+            return _mapper.ReverseMap(framesRepository.GetAll());
         }
-        
-        public FrameInteractor(IRepository<Frame> frames)
+
+        public FrameInteractor(IMapper<IEnumerable<Frame>, IEnumerable<FrameModel>> mapper, IRepository<FrameModel> frames)
         {
+            this._mapper = mapper;
             this.framesRepository = frames;
         }
     }

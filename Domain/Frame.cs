@@ -4,15 +4,13 @@ using System.Text;
 
 namespace Domain
 {
-    class Frame
+    public class Frame
     {
         public string Name { get; set; }
         public IList<Material> Materials { get; set; }
 
-        public Frame(string name, List<Material> Materials)
+        public Frame()
         {
-            this.Name = name;
-            this.Materials = Materials;
         }
     }
 

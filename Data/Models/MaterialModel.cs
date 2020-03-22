@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Data.Models
 {
-    public class Frame : BaseModel
+    public class MaterialModel : BaseModel
     {
         public string Name { get; set; }
-        public IList<Material> Materials { get; set; }
+        public int Quantity { get; set; }
     }
 }
