@@ -1,4 +1,11 @@
-﻿using System;
+﻿using Data;
+using Data.Interfaces;
+using Data.Models;
+using Data.Repositories;
+using Domain;
+using Domain.Mappers;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +20,29 @@ namespace Presentation
     /// </summary>
     public partial class App : Application
     {
+        MainViewModel mainViewModel;
+        protected override void OnStartup(StartupEventArgs e)
+            {
+            var serviceProvider = new ServiceCollection().AddDbContext<DataDbContext>()
+                    .AddSingleton<IMapper<IEnumerable<Frame>, IEnumerable<FrameModel>>>()
+                    .AddSingleton<IMapper<IEnumerable<Material>, IEnumerable<MaterialModel>>>()
+                    .AddScoped<IRepository<Frame>, Repository<FrameModel>>()
+                    .AddScoped<IRepository<Material>, Repository<MaterialModel>>()
+                    .AddScoped<IUnitOfWork, UnitOfWork>()
+                    .AddTransient<IOrderInteractor, OrderInteractor>()
+                    .AddTransient<IFrameInteractor, FrameInteractor>()
+                    .BuildServiceProvider();
+
+
+            var frameInteractor = serviceProvider.GetService<IFrameInteractor>();
+                var orderInteracto = serviceProvider.GetService<IOrderInteractor>();
+
+                mainViewModel = new MainViewModel(frameInteractor, orderInteracto);
+
+                new MainWindow { DataContext = mainViewModel };
+                MainWindow.Show();
+            }
     }
+
+    
 }

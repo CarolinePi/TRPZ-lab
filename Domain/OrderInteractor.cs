@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Domain.Exceptions;
+using Domain.Validators;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Domain
 {
-    class OrderInteractor : IOrderInteractor
+    public class OrderInteractor : IOrderInteractor
     {
         public IList<Material> CountOrderMaterials(Order o)
         {
@@ -19,8 +21,10 @@ namespace Domain
                     }
                     else
                     {
-                        totalMaterial = new Material(material.Name, orderItem.Height * orderItem.Width * orderItem.Quantity * material.Quantity);
-                        dictMaterial[totalMaterial.Name] = totalMaterial;
+                        totalMaterial = new Material();
+                        totalMaterial.Name = material.Name;
+                        totalMaterial.Quantity = orderItem.Height * orderItem.Width * orderItem.Quantity * material.Quantity;
+                     dictMaterial[totalMaterial.Name] = totalMaterial;
                     }
                 }
             }
@@ -32,5 +36,30 @@ namespace Domain
             }
             return materials;
         }
+
+        public void AddOrderItem(Order order, Frame frame, int quantity, int width, int height)
+        {
+            OrderItem orderItem = new OrderItem
+            {
+                Frame = frame,
+                Quantity = quantity,
+                Width = width,
+                Height = height
+            };
+            order.OrderItems.Add(orderItem);
+        }
+        public void CreateOrder(Order order)
+        {
+            try
+            {
+                OrderValidator.AssertOrderIsValid(order);
+            }
+            catch (ValidatorException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            CountOrderMaterials(order);
+        }
+
     }
 }
