@@ -10,12 +10,8 @@ namespace Domain
         public int Quantity { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public OrderItem(Frame frame, int quantity, int width, int height)
+        public OrderItem()
         {
-            this.Frame = frame;
-            this.Quantity = quantity;
-            this.Width = width;
-            this.Height = height;
         }
                    
 

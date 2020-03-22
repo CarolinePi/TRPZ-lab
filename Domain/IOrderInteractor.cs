@@ -4,8 +4,10 @@ using System.Text;
 
 namespace Domain
 {
-    interface IOrderInteractor
+    public interface IOrderInteractor
     {
         IList<Material> CountOrderMaterials(Order order);
+        void AddOrderItem(Order order, Frame frame, int quantity, int wight, int height);
+        void CreateOrder(Order order);
     }
 }

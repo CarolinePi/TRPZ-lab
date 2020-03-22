@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain
 {
-    interface IFrameInteractor
+    public interface IFrameInteractor
     {
         IEnumerable<Frame> GetAllFrames();
     }

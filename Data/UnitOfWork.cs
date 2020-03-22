@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Data
 {
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly DataDbContext _context;
         public IRepository<MaterialModel> MaterialRepository { get; }
