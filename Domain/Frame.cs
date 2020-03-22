@@ -7,16 +7,12 @@ namespace Domain
     class Frame
     {
         public string Name { get; set; }
-        public IList<string> Materials { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public IList<Material> Materials { get; set; }
 
-        public Frame(string name, List<string> Materials, int Width, int Height)
+        public Frame(string name, List<Material> Materials)
         {
             this.Name = name;
             this.Materials = Materials;
-            this.Width = Width;
-            this.Height = Height;
         }
     }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Data.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : IBaseModel
+    public interface IRepository<TEntity>
     {
         void Add(TEntity entity);
         void Update(TEntity entity);

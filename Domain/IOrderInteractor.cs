@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Domain
 {
-    interface IFrameInteractor
+    interface IOrderInteractor
     {
-        IEnumerable<Frame> GetAllFrames();
+        IList<Material> CountOrderMaterials(Order order);
     }
 }
