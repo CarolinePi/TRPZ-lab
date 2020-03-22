@@ -1,0 +1,32 @@
+﻿<Window x:Class="Presentation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid>
+            <Label Content="Quantity:" HorizontalAlignment="Left" Margin="34,389,0,0" VerticalAlignment="Top" Height="35" Width="63" RenderTransformOrigin="0.5,0.5">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-3.143"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0.961"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <ListBox Name="LBoxFrames" Margin="10,27,453,64"/>
+            <ListBox Name="LBoxMaterials" Margin="364,27,22,64"/>
+            <Button x:Name="BtnAddFrame" Content="Add" Command="{Binding AddFrame}" HorizontalAlignment="Left" Margin="225,389,0,0" VerticalAlignment="Top" Height="35" Width="100"/>
+            <Button x:Name="BtnMakeOrder" Background="Green" Content="Make Order" Command="{Binding CreateOrder}" Height="47" Margin="645,378,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="121"/>
+            <TextBox HorizontalAlignment="Left" Margin="97,389,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="35" PreviewTextInput="NumberValidationTextBox"/>
+            <Button x:Name="BtnReset" Background="Red" Content="Reset" Command="{Binding Reset}"  HorizontalAlignment="Left" Height="47" Margin="463,378,0,0" VerticalAlignment="Top" Width="127"/>
+            <Label Content="Available frames:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="35" Width="168" RenderTransformOrigin="0.584,0.525"/>
+            <Label Content="Needed materials:" HorizontalAlignment="Left" Margin="364,0,0,0" VerticalAlignment="Top" Height="35" Width="168" RenderTransformOrigin="0.584,0.525"/>
+        </Grid>
+
+    </Grid>
+</Window>
