@@ -8,11 +8,11 @@ namespace Domain.Validators
 {
     public class FieldValidator
     {
-        public static void AssertFieldIsValid(string number_of_string)
+        public static void AssertFieldIsValid(int number)
         {
-            if (number_of_string.All(char.IsDigit))
+            if (number <= 0)
             {
-                throw new ValidatorException("Given string is not numeric.");
+                throw new ValidatorException("Given number <= 0.");
             }
         }
     }

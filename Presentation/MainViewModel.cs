@@ -1,4 +1,6 @@
 ﻿using Domain;
+using Domain.Exceptions;
+using Domain.Validators;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +23,13 @@ namespace Presentation
         private Order _currentOrder;
         private Frame _selectedFrame;
         private Command _addFrame;
+        private Command _removeFrame;
         private IList<Material> currentMaterials;
+        private IList<OrderItem> currentOrderItems;
+        private Command _newOrder;
+        private string exception;
+        private OrderItem _selectedOrderItem;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
 
@@ -32,6 +40,16 @@ namespace Presentation
             _currentOrder = new Order();
         }
 
+        public string ExceptionField
+        {
+            get => exception;
+            set
+            {
+                exception = value;
+                OnPropertyChanged("ExceptionField");
+            }
+        }
+
         public Frame SelectedFrame
         {
             get => _selectedFrame;
@@ -39,6 +57,25 @@ namespace Presentation
             {
                 _selectedFrame = value;
                 OnPropertyChanged("SelectedFrame");
+            }
+        }
+        public OrderItem SelectedOrderItem
+        {
+            get => _selectedOrderItem;
+            set
+            {
+                _selectedOrderItem = value;
+                OnPropertyChanged("SelectedOrderItem");
+            }
+        }
+
+        public IList<OrderItem> CurrentOrderItems
+        {
+            get => currentOrderItems;
+            set
+            {
+                currentOrderItems = value;
+                OnPropertyChanged("CurrentOrderItems");
             }
         }
 
@@ -58,8 +95,55 @@ namespace Presentation
             {
                 return _addFrame ??= new Command(obj =>
                 {
-                    OrderInteractor.AddOrderItem(_currentOrder, SelectedFrame, Quantity, Width, Height);
+                    try
+                    {
+                        FrameValidator.AssertFrameIsValid(SelectedFrame);
+                        FieldValidator.AssertFieldIsValid(Quantity);
+                        FieldValidator.AssertFieldIsValid(Width);
+                        FieldValidator.AssertFieldIsValid(Height);
+                        OrderInteractor.AddOrderItem(_currentOrder, SelectedFrame, Quantity, Width, Height);
+                        CurrentMaterials = OrderInteractor.CountOrderMaterials(_currentOrder);
+                        CurrentOrderItems = OrderInteractor.GetOrderItems(_currentOrder);
+                    }
+                    catch (ValidatorException e)
+                    {
+                        ExceptionField = e.Message;
+                    }
+                });
+            }
+        }
+
+        public Command RemoveFrame
+        {
+            get
+            {
+                return _removeFrame ??= new Command(obj =>
+                {
+                    try
+                    {
+                        OrderItemValidator.AssertOrderItemsIsValid(currentOrderItems);
+                        OrderItemValidator.AssertOrderItemIsValid(SelectedOrderItem);
+                        OrderInteractor.DeleteOrderItem(_currentOrder, SelectedOrderItem);
+                        CurrentMaterials = OrderInteractor.CountOrderMaterials(_currentOrder);
+                        CurrentOrderItems = OrderInteractor.GetOrderItems(_currentOrder);
+                    }
+                    catch (ValidatorException e)
+                    {
+                        ExceptionField = e.Message;
+                    }
+
+                });
+            }
+        }
+        public Command NewOrder
+        {
+            get
+            {
+                return _newOrder ??= new Command(obj =>
+                {
+                    _currentOrder = new Order();
                     CurrentMaterials = OrderInteractor.CountOrderMaterials(_currentOrder);
+                    CurrentOrderItems = OrderInteractor.GetOrderItems(_currentOrder);
                 });
             }
         }

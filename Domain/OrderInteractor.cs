@@ -24,7 +24,7 @@ namespace Domain
                         totalMaterial = new Material();
                         totalMaterial.Name = material.Name;
                         totalMaterial.Quantity = orderItem.Height * orderItem.Width * orderItem.Quantity * material.Quantity;
-                     dictMaterial[totalMaterial.Name] = totalMaterial;
+                        dictMaterial[totalMaterial.Name] = totalMaterial;
                     }
                 }
             }
@@ -48,6 +48,11 @@ namespace Domain
             };
             order.OrderItems.Add(orderItem);
         }
+
+        public void DeleteOrderItem(Order order, OrderItem orderItem)
+        {
+            order.OrderItems.Remove(orderItem);
+        }
         public void CreateOrder(Order order)
         {
             try
@@ -61,5 +66,9 @@ namespace Domain
             CountOrderMaterials(order);
         }
 
+        public IList<OrderItem> GetOrderItems(Order order)
+        {
+            return order.OrderItems;
+        }
     }
 }

@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="479" Width="800">
+        Title="MainWindow" Height="479" Width="882">
     <Grid>
         <Grid Margin="-3,0,3,0">
-            <Label Content="Quantity:" HorizontalAlignment="Left" Margin="44,335,0,0" VerticalAlignment="Top" Height="35" Width="63" RenderTransformOrigin="0.5,0.5"></Label>
-            <Label Content="Wight:" HorizontalAlignment="Left" Margin="44,407,0,0" VerticalAlignment="Top" Height="35" Width="63" RenderTransformOrigin="0.5,0.5"></Label>
-            <Label Content="Height:" HorizontalAlignment="Left" Margin="44,372,0,0" VerticalAlignment="Top" Height="36" Width="63" RenderTransformOrigin="0.5,0.5"></Label>
+            <Label Content="Quantity:" HorizontalAlignment="Left" Margin="21,342,0,0" VerticalAlignment="Top" Height="35" Width="56" RenderTransformOrigin="0.5,0.5"></Label>
+            <Label Content="Wight:" HorizontalAlignment="Left" Margin="21,414,0,0" VerticalAlignment="Top" Height="35" Width="56" RenderTransformOrigin="0.5,0.5"></Label>
+            <Label Content="Height:" HorizontalAlignment="Left" Margin="21,379,0,0" VerticalAlignment="Top" Height="36" Width="56" RenderTransformOrigin="0.5,0.5"></Label>
 
-            <ListBox Name="LBoxFrames" Margin="10,27,0,0" HorizontalAlignment="Left" Height="298" VerticalAlignment="Top" Width="329" 
+            <ListBox Name="LBoxFrames" Margin="10,35,0,0" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="283" 
                  ItemsSource="{Binding Frames, Mode=OneWay}" SelectedItem="{Binding Path=SelectedFrame}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -23,7 +23,22 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <ListBox x:Name="LBoxMaterials" HorizontalAlignment="Left" Height="298" Margin="364,27,22,64" VerticalAlignment="Top" Width="400" IsSynchronizedWithCurrentItem="True" Grid.Column="2" Grid.RowSpan="2"
+            <ListBox x:Name="LBoxOrderItems" HorizontalAlignment="Center" Height="290" Margin="0,32,0,0" VerticalAlignment="Top" Width="270" IsSynchronizedWithCurrentItem="True"
+                ItemsSource="{Binding CurrentOrderItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedOrderItem}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="20" Text="{Binding Path=Frame.Name}"/>
+                            <TextBlock FontSize="20" Text="{Binding Path=Quantity}"/>
+                            <TextBlock FontSize="20" Text="{Binding Path=Width}"/>
+                            <TextBlock FontSize="20" Text="{Binding Path=Height}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
+            <ListBox x:Name="LBoxMaterials" HorizontalAlignment="Left" Height="290" Margin="590,35,0,0" VerticalAlignment="Top" Width="282" IsSynchronizedWithCurrentItem="True"
                  ItemsSource="{Binding CurrentMaterials, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -35,14 +50,17 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Button x:Name="BtnAddFrame" Content="Add" Command="{Binding AddFrame}" HorizontalAlignment="Left" Margin="215,338,0,0" VerticalAlignment="Top" Height="88" Width="132"/>
-            <Button x:Name="BtnMakeOrder" Background="Green" Content="Make Order" Command="{Binding CreateOrder}" Height="47" Margin="645,378,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="121"/>
-            <TextBox x:Name="TBoxQuantity" Text="{Binding Path=Quantity}" HorizontalAlignment="Left" Margin="117,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Height="26"/>
-            <TextBox x:Name="TBoxWidth" Text="{Binding Path=Width}" HorizontalAlignment="Left" Margin="117,407,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Height="26"/>
-            <TextBox x:Name="TBoxHeight" Text="{Binding Path=Height}" HorizontalAlignment="Left" Margin="117,372,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Height="26"/>
-            <Button x:Name="BtnReset" Background="Red" Content="Reset" Command="{Binding Reset}"  HorizontalAlignment="Left" Height="47" Margin="508,378,0,0" VerticalAlignment="Top" Width="126"/>
+            <Button x:Name="BtnAddFrame" Content="Add" Command="{Binding AddFrame}" HorizontalAlignment="Left" Margin="172,345,0,0" VerticalAlignment="Top" Height="95" Width="121"/>
+            <Button x:Name="BtnMakeOrder" Background="Green" Content="Make Order" Command="{Binding CreateOrder}" Height="47" Margin="743,369,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="121"/>
+            <TextBox x:Name="TBoxQuantity" Text="{Binding Path=Quantity}" HorizontalAlignment="Left" Margin="86,345,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" Height="26"/>
+            <TextBox x:Name="TBoxWidth" Text="{Binding Path=Width}" HorizontalAlignment="Left" Margin="86,414,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" Height="26"/>
+            <TextBox x:Name="TBoxHeight" Text="{Binding Path=Height}" HorizontalAlignment="Left" Margin="86,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" Height="26"/>
+            <Button x:Name="BtnReset" Background="Red" Content="Reset" Command="{Binding NewOrder}"  HorizontalAlignment="Left" Height="47" Margin="606,369,0,0" VerticalAlignment="Top" Width="126"/>
             <Label Content="Available frames:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="35" Width="168" RenderTransformOrigin="0.584,0.525"/>
-            <Label Content="Needed materials:" HorizontalAlignment="Left" Margin="364,0,0,0" VerticalAlignment="Top" Height="35" Width="168" RenderTransformOrigin="0.584,0.525"/>
+            <Label Content="Needed materials:" HorizontalAlignment="Left" Margin="590,0,0,0" VerticalAlignment="Top" Height="35" Width="168" RenderTransformOrigin="0.584,0.525"/>
+            <Label Content="Choosen frames:" HorizontalAlignment="Left" Margin="306,0,0,0" VerticalAlignment="Top" Height="35" Width="168" RenderTransformOrigin="0.584,0.525"/>
+            <TextBox HorizontalAlignment="Center" Margin="0,374,0,0" Text="{Binding Path=ExceptionField, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="238" AllowDrop="False" IsReadOnly="True" IsUndoEnabled="False" Height="31"/>
+            <Button x:Name="BtnRemoveFrame" Background="Red" Content="Remove" Command="{Binding RemoveFrame}" HorizontalAlignment="Center" Margin="0,414,0,0" VerticalAlignment="Top" Height="18" Width="122"/>
         </Grid>
 
     </Grid>
