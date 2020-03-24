@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Domain.Validators
 {
-    class OrderValidator
+    public class OrderValidator
     {
         public static void AssertOrderIsValid(Order order)
         {
@@ -15,5 +15,6 @@ namespace Domain.Validators
                 throw new ValidatorException("Order can't be empty.");
             }
         }
+
     }
 }

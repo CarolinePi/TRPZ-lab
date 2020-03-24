@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class InitDB : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,34 +26,44 @@ namespace Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Quantity = table.Column<int>(nullable: false),
-                    FrameId = table.Column<Guid>(nullable: true)
+                    FrameModelId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Materials", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Materials_Frames_FrameId",
-                        column: x => x.FrameId,
+                        name: "FK_Materials_Frames_FrameModelId",
+                        column: x => x.FrameModelId,
                         principalTable: "Frames",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
+                table: "Frames",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { new Guid("abebcd43-5718-43c4-aa3d-6c4bc7153b37"), "Standart" });
+
+            migrationBuilder.InsertData(
+                table: "Frames",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { new Guid("d83be8ac-b1e9-4d5b-be34-ecc207a9cc34"), "Original" });
+
+            migrationBuilder.InsertData(
                 table: "Materials",
-                columns: new[] { "Id", "FrameId", "Name", "Quantity" },
+                columns: new[] { "Id", "FrameModelId", "Name", "Quantity" },
                 values: new object[,]
                 {
-                    { new Guid("4deb0123-af83-43f9-b0eb-0d073b92c8cc"), null, "Wood", 21 },
-                    { new Guid("6b57748c-e193-4fe5-9553-c8d557e4336b"), null, "Iron", 18 },
-                    { new Guid("95ba9ece-f754-4cd7-9452-2a267b8f682e"), null, "Black paint", 14 },
-                    { new Guid("14c9eeb1-80c7-400f-bd21-3567c379934b"), null, "Yellow paint", 3 }
+                    { new Guid("c505f2b7-01ec-4922-b062-ab8f3057b8b1"), new Guid("abebcd43-5718-43c4-aa3d-6c4bc7153b37"), "Wood", 21 },
+                    { new Guid("a0085ad9-552c-4dc5-8de1-6e0e9a2e83c7"), new Guid("abebcd43-5718-43c4-aa3d-6c4bc7153b37"), "Iron", 18 },
+                    { new Guid("2ce1e9ef-98fb-4c07-9016-052fba27143f"), new Guid("d83be8ac-b1e9-4d5b-be34-ecc207a9cc34"), "Black paint", 14 },
+                    { new Guid("7506ae84-79d5-45d8-952c-f3807bf19ae0"), new Guid("d83be8ac-b1e9-4d5b-be34-ecc207a9cc34"), "Yellow paint", 3 }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Materials_FrameId",
+                name: "IX_Materials_FrameModelId",
                 table: "Materials",
-                column: "FrameId");
+                column: "FrameModelId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -24,10 +24,10 @@ namespace Presentation
         protected override void OnStartup(StartupEventArgs e)
             {
             var serviceProvider = new ServiceCollection().AddDbContext<DataDbContext>()
-                    .AddSingleton<IMapper<IEnumerable<Frame>, IEnumerable<FrameModel>>>()
-                    .AddSingleton<IMapper<IEnumerable<Material>, IEnumerable<MaterialModel>>>()
-                    .AddScoped<IRepository<Frame>, Repository<FrameModel>>()
-                    .AddScoped<IRepository<Material>, Repository<MaterialModel>>()
+                    .AddSingleton<IMapper<IEnumerable<Frame>, IEnumerable<FrameModel>>, FrameMapper>()
+                    .AddSingleton<IMapper<IEnumerable<Material>, IEnumerable<MaterialModel>>, MaterialMapper>()
+                    .AddScoped<IRepository<FrameModel>, FrameRepository>()
+                    .AddScoped<IRepository<MaterialModel>, MaterialRepository>()
                     .AddScoped<IUnitOfWork, UnitOfWork>()
                     .AddTransient<IOrderInteractor, OrderInteractor>()
                     .AddTransient<IFrameInteractor, FrameInteractor>()
@@ -35,13 +35,13 @@ namespace Presentation
 
 
             var frameInteractor = serviceProvider.GetService<IFrameInteractor>();
-                var orderInteracto = serviceProvider.GetService<IOrderInteractor>();
+            var orderInteracto = serviceProvider.GetService<IOrderInteractor>();
 
-                mainViewModel = new MainViewModel(frameInteractor, orderInteracto);
+            mainViewModel = new MainViewModel(frameInteractor, orderInteracto);
 
-                new MainWindow { DataContext = mainViewModel };
-                MainWindow.Show();
-            }
+            new MainWindow { DataContext = mainViewModel };
+            MainWindow.Show();
+        }
     }
 
     

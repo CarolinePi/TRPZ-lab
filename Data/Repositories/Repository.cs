@@ -10,10 +10,12 @@ namespace Data.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseModel
     {
+        protected readonly DataDbContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
         public Repository(DataDbContext context)
         {
+            _context = context;
             _dbSet = context.Set<TEntity>();
         }
 
@@ -42,7 +44,7 @@ namespace Data.Repositories
             }
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
             return _dbSet.ToList();
         }

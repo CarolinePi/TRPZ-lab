@@ -7,7 +7,6 @@ namespace Domain.Mappers
 {
     public class MaterialMapper : IMapper<IEnumerable<Material>, IEnumerable<MaterialModel>>
     {
-
         IEnumerable<MaterialModel> IMapper<IEnumerable<Material>, IEnumerable<MaterialModel>>.Map(IEnumerable<Material> materials)
         {
             List<MaterialModel> l = new List<MaterialModel>();
