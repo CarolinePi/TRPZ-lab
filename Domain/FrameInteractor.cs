@@ -10,6 +10,7 @@ namespace Domain
     {
         private readonly IRepository<FrameModel> framesRepository;
         private readonly IMapper<IEnumerable<Frame>, IEnumerable<FrameModel>> _mapper;
+
         public IEnumerable<Frame> GetAllFrames()
         {
             return _mapper.ReverseMap(framesRepository.GetAll());

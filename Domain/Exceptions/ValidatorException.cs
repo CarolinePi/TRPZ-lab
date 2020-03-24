@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Exceptions
 {
-    class ValidatorException: Exception
+    public class ValidatorException: Exception
     {
         public ValidatorException(string message) : base(message) { }
     }
